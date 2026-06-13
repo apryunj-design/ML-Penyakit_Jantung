@@ -142,7 +142,7 @@ st.write("")
 st.markdown("""
 <div class="sub-title">
 Aplikasi ini memprediksi <b>potensi penyakit jantung</b> berdasarkan data klinis pasien
-menggunakan model Machine Learning. Dataset latih berasal dari
+menggunakan model Machine Learning. Dataset training berasal dari
 <a href="https://archive.ics.uci.edu/dataset/45/heart+disease" target="_blank">Heart Disease Dataset (UCI ML)</a>.
 </div>
 """, unsafe_allow_html=True)
@@ -158,9 +158,9 @@ st.write("Nyeri dada yang menjalar dan tekanan di area dada bisa menjadi tanda p
 
 col1, col2 = st.columns(2)
 with col1:
-    show_image_card("man-heart-attack.jpg", "Gejala pada Pria")
+    show_image_card("public/man-heart-attack.jpg", "Gejala pada Pria")
 with col2:
-    show_image_card("woman-heart-attack.jpg", "Gejala pada Wanita")
+    show_image_card("public/woman-heart-attack.jpg", "Gejala pada Wanita")
 
 st.write("---")
 
@@ -194,7 +194,7 @@ else:
 
         thalach = st.sidebar.slider("Maximum Heart Rate Achieved", 71, 202, 80)
         slope = st.sidebar.slider("Kemiringan segmen ST (EKG)", 0, 2, 1)
-        oldpeak = st.sidebar.slider("Depresi segmen ST (oldpeak)", 0.0, 6.2, 1.0)
+        oldpeak = st.sidebar.slider("Depresi segmen ST", 0.0, 6.2, 1.0)
         exang = st.sidebar.slider("Exercise Induced Angina", 0, 1, 1)
         ca = st.sidebar.slider("Jumlah Pembuluh Darah Utama", 0, 3, 1)
         thal = st.sidebar.slider("Hasil Tes Thalium", 1, 3, 1)
@@ -234,7 +234,7 @@ if predict_btn:
     st.markdown('<div class="section-header">📋 Data Input</div>', unsafe_allow_html=True)
     st.dataframe(df, use_container_width=True)
 
-    with open("best_model.pkl", 'rb') as file:
+    with open("model/best_model.pkl", 'rb') as file:
         loaded_model = pickle.load(file)
 
 
@@ -251,10 +251,10 @@ if loaded_model is not None:
 
     if (prediction == 0).any():
         st.markdown('<div class="result-box-negative">✅ TIDAK TERINDIKASI PENYAKIT JANTUNG</div>', unsafe_allow_html=True)
-        result_img = "strong-heart.jpg"
+        result_img = "public/strong-heart.jpg"
     else:
         st.markdown('<div class="result-box-positive">⚠️ ADA POTENSI PENYAKIT JANTUNG</div>', unsafe_allow_html=True)
-        result_img = "heart-disease.jpg"
+        result_img = "public/heart-disease.jpg"
 
     st.write("")
     img_col, _ = st.columns([1, 2])
