@@ -181,28 +181,43 @@ else:
     def user_input_features():
         st.sidebar.markdown("### ✍️ Input Manual")
 
-        cp = st.sidebar.selectbox('Tipe Nyeri Dada', [1, 2, 3, 4])
-        if cp == 1:
+        sex = st.sidebar.selectbox("Jenis kelamin", ('Perempuan', 'Pria'))
+        sex = 0 if sex == "Perempuan" else 1
+
+        age = st.sidebar.slider("Usia", 20, 100, 50)
+
+        cp = st.sidebar.slider("Jenis nyeri dada (cp)", 0, 3, 1)
+        if cp == 0:
             wcp = "Nyeri dada tipe angina"
-        elif cp == 2:
+        elif cp == 1:
             wcp = "Nyeri dada tipe nyeri tidak stabil"
-        elif cp == 3:
+        elif cp == 2:
             wcp = "Nyeri dada tipe nyeri tidak stabil yang parah"
         else:
             wcp = "Nyeri dada tidak terkait dengan masalah jantung"
         st.sidebar.caption(f"ℹ️ {wcp}")
 
-        thalach = st.sidebar.slider("Maximum Heart Rate Achieved", 71, 202, 80)
-        slope = st.sidebar.slider("Kemiringan segmen ST", 0, 2, 1)
-        oldpeak = st.sidebar.slider("Depresi segmen ST", 0.0, 6.2, 1.0)
-        exang = st.sidebar.slider("Exercise Induced Angina", 0, 1, 1)
-        ca = st.sidebar.slider("Jumlah Pembuluh Darah Utama", 0, 3, 1)
-        thal = st.sidebar.slider("Hasil Tes Thalium", 1, 3, 1)
-
-        sex = st.sidebar.selectbox("Jenis Kelamin", ('Perempuan', 'Pria'))
-        sex = 0 if sex == "Perempuan" else 1
-
-        age = st.sidebar.slider("Usia", 20, 100, 50)
+        thalach = st.sidebar.slider("Maksimum detak jantung saat olahraga (thalach)", 71, 202, 80)
+        slope = st.sidebar.slider("Kemiringan segmen ST (slope)", 0, 2, 1)
+        oldpeak = st.sidebar.slider("Depresi segmen ST (oldpeak)", 0.0, 6.2, 1.0)
+        
+        exang = st.sidebar.slider("Nyeri dada saat olahraga (exang)", 0, 1, 1)
+        if exang == 0:
+            wexang = "Tidak"
+        else:
+            wexang = "Ya"
+        st.sidebar.caption(f"ℹ️ {wexang}")
+        
+        ca = st.sidebar.slider("Jumlah pembuluh darah utama (ca)", 0, 3, 1)
+        
+        thal = st.sidebar.slider("Hasil tes Thalium (thal)", 1, 3, 1)
+        if thal == 1:
+            wthal = "Normal"
+        elif thal == 2:
+            wthal = "Ada defek tetap"
+        else:
+            wthal = "Ada defek dapat dipulihkan"
+        st.sidebar.caption(f"ℹ️ {wthal}")
 
         data = {
             'cp': cp,
